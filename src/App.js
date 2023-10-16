@@ -3,20 +3,14 @@ import "./App.css";
 import Home from "./pages/Home";
 import LogInPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
-
-import { createRoot } from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom";
-import Cart from "./features/cart/Cart";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import CartPage from "./pages/CartPage";
+import Checkout from "./pages/Checkout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home></Home>
+    element: <Home></Home>,
   },
   {
     path: "/login",
@@ -24,18 +18,22 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <SignUpPage></SignUpPage>
+    element: <SignUpPage></SignUpPage>,
   },
   {
     path: "/cart",
-    element: <Cart></Cart>
+    element: <CartPage></CartPage>,
+  },
+  {
+    path: "/checkout",
+    element: <Checkout></Checkout>,
   },
 ]);
 
 function App() {
   return (
     <div className="App">
-     <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </div>
   );
 }
