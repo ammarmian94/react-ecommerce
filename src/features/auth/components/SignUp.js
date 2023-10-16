@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
   return (
@@ -11,7 +12,7 @@ export default function SignUp() {
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Create new Account
+            Create a new Account
           </h2>
         </div>
 
@@ -44,9 +45,8 @@ export default function SignUp() {
                 >
                   Password
                 </label>
-            
               </div>
-              
+
               <div className="mt-2">
                 <input
                   id="password"
@@ -67,9 +67,8 @@ export default function SignUp() {
                 >
                   Confirm Password
                 </label>
-            
               </div>
-              
+
               <div className="mt-2">
                 <input
                   id="confirm-password"
@@ -93,12 +92,12 @@ export default function SignUp() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Already a member?{" "}
-            <a
-              href="#"
+            <Link
+              to="/login"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Log In Here
-            </a>
+            </Link>
           </p>
         </div>
       </div>
