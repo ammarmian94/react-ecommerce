@@ -28,16 +28,44 @@ const products = [
   },
   // More products...
 ];
+
+const addresses = [
+  {
+    name: "John wick",
+    street: "talhara",
+    city: "daska",
+    pinCode: 656556,
+    state: "Punjab",
+    phone: 90078601,
+  },
+  {
+    name: "Mathew",
+    street: "main",
+    city: "Sialkot",
+    pinCode: 123456,
+    state: "Punjab",
+    phone: 90078601,
+  },
+  {
+    name: "Elon musk",
+    street: "4IIE",
+    city: "Gujranwala",
+    pinCode: 765434,
+    state: "Punjab",
+    phone: 90078601,
+  },
+];
 function Checkout() {
   return (
     <>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
+          {/* Personal Information start */}
           <div className="lg:col-span-3">
-            <form className="bg-white px-5 py-5 mt-12 mb-12">
+            <form className="bg-white px-5 py-7 mt-12 mb-12">
               <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
-                  <h2 className="text-base font-semibold leading-7 text-gray-900">
+                  <h2 className="text-2xl font-semibold leading-7 text-gray-900">
                     Personal Information
                   </h2>
                   <p className="mt-1 text-sm leading-6 text-gray-600">
@@ -192,138 +220,107 @@ function Checkout() {
                       </div>
                     </div>
                   </div>
+                  <div className="mt-6 flex items-center justify-end gap-x-6">
+                    <button
+                      type="button"
+                      className="text-sm font-semibold leading-6 text-gray-900"
+                    >
+                      Reset
+                    </button>
+                    <button
+                      type="submit"
+                      className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                      Save
+                    </button>
+                  </div>
                 </div>
 
-                <div className="border-b border-gray-900/10 pb-12">
-                  <h2 className="text-base font-semibold leading-7 text-gray-900">
-                    Notifications
-                  </h2>
-                  <p className="mt-1 text-sm leading-6 text-gray-600">
-                    We'll always let you know about important changes, but you
-                    pick what else you want to hear about.
-                  </p>
+                <fieldset>
+                  <div className="border-b border-gray-900/10 pb-12">
+                    <legend className="text-sm font-semibold leading-6 text-gray-900">
+                      Address
+                    </legend>
+                    <p className="mt-1 text-sm leading-6 text-gray-600">
+                      Choose from existing addresses{" "}
+                    </p>
+                    <ul role="list">
+                      {addresses.map((address) => (
+                        <li
+                          key={address.name}
+                          className="flex justify-between gap-x-6 py-5 mb-3 px-5 border-solid border-2 border-gray"
+                        >
+                          <div className="flex min-w-0 gap-x-4">
+                            <input
+                              name="address"
+                              type="radio"
+                              className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            />
+                            <div className="min-w-0 flex-auto">
+                              <p className="text-sm font-semibold leading-6 text-gray-900">
+                                {address.name}
+                              </p>
+                              <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                                {address.street}
+                              </p>
+                              <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                                {address.pinCode}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                            <p className="text-sm leading-6 text-gray-900">
+                              Phone: {address.phone}
+                            </p>
+                            <p className="text-sm leading-6 text-gray-500">
+                              {address.city}
+                            </p>
+                            <p className="text-sm leading-6 text-gray-500">
+                              {address.state}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </fieldset>
 
+                <div className="border-b border-gray-900/10 pb-12">
                   <div className="mt-10 space-y-10">
                     <fieldset>
                       <legend className="text-sm font-semibold leading-6 text-gray-900">
-                        By Email
-                      </legend>
-                      <div className="mt-6 space-y-6">
-                        <div className="relative flex gap-x-3">
-                          <div className="flex h-6 items-center">
-                            <input
-                              id="comments"
-                              name="comments"
-                              type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                            />
-                          </div>
-                          <div className="text-sm leading-6">
-                            <label
-                              htmlFor="comments"
-                              className="font-medium text-gray-900"
-                            >
-                              Comments
-                            </label>
-                            <p className="text-gray-500">
-                              Get notified when someones posts a comment on a
-                              posting.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="relative flex gap-x-3">
-                          <div className="flex h-6 items-center">
-                            <input
-                              id="candidates"
-                              name="candidates"
-                              type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                            />
-                          </div>
-                          <div className="text-sm leading-6">
-                            <label
-                              htmlFor="candidates"
-                              className="font-medium text-gray-900"
-                            >
-                              Candidates
-                            </label>
-                            <p className="text-gray-500">
-                              Get notified when a candidate applies for a job.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="relative flex gap-x-3">
-                          <div className="flex h-6 items-center">
-                            <input
-                              id="offers"
-                              name="offers"
-                              type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                            />
-                          </div>
-                          <div className="text-sm leading-6">
-                            <label
-                              htmlFor="offers"
-                              className="font-medium text-gray-900"
-                            >
-                              Offers
-                            </label>
-                            <p className="text-gray-500">
-                              Get notified when a candidate accepts or rejects
-                              an offer.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                    <fieldset>
-                      <legend className="text-sm font-semibold leading-6 text-gray-900">
-                        Push Notifications
+                        Payment Method
                       </legend>
                       <p className="mt-1 text-sm leading-6 text-gray-600">
-                        These are delivered via SMS to your mobile phone.
+                        Choose payment method{" "}
                       </p>
                       <div className="mt-6 space-y-6">
                         <div className="flex items-center gap-x-3">
                           <input
-                            id="push-everything"
-                            name="push-notifications"
+                            id="cash-payment"
+                            name="paymentMethod"
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
                           <label
-                            htmlFor="push-everything"
+                            htmlFor="cash-payment"
                             className="block text-sm font-medium leading-6 text-gray-900"
                           >
-                            Everything
+                            Cash
                           </label>
                         </div>
                         <div className="flex items-center gap-x-3">
                           <input
-                            id="push-email"
-                            name="push-notifications"
+                            id="card-payment"
+                            name="paymentMethod"
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
                           <label
-                            htmlFor="push-email"
+                            htmlFor="card-payment"
                             className="block text-sm font-medium leading-6 text-gray-900"
                           >
-                            Same as email
-                          </label>
-                        </div>
-                        <div className="flex items-center gap-x-3">
-                          <input
-                            id="push-nothing"
-                            name="push-notifications"
-                            type="radio"
-                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          />
-                          <label
-                            htmlFor="push-nothing"
-                            className="block text-sm font-medium leading-6 text-gray-900"
-                          >
-                            No push notifications
+                            Card
                           </label>
                         </div>
                       </div>
@@ -331,26 +328,14 @@ function Checkout() {
                   </div>
                 </div>
               </div>
-
-              <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button
-                  type="button"
-                  className="text-sm font-semibold leading-6 text-gray-900"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Save
-                </button>
-              </div>
             </form>
           </div>
+          {/* Personal Information end */}
+
+          {/* Cart Summary start */}
           <div className="lg:col-span-2">
             <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+              <div className="border-t border-gray-200 px-0 py-0 sm:px-0">
                 <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
                   Cart
                 </h1>
@@ -418,15 +403,31 @@ function Checkout() {
                 </p>
                 <div className="mt-6">
                   <Link
-                    to="/checkout"
+                    // to="/pay"
+                    to="#"
                     className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                   >
-                    Checkout
+                    Pay and Order
                   </Link>
+                </div>
+                <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                  <p>
+                    or
+                    <Link to="/">
+                      <button
+                        type="button"
+                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                      >
+                        Continue Shopping
+                        <span aria-hidden="true"> &rarr;</span>
+                      </button>
+                    </Link>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
+          {/* Cart Summary end */}
         </div>
       </div>
     </>
