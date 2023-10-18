@@ -1,7 +1,8 @@
-export function fetchCount(amount = 1) {
+export function fetchAllProducts() {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080");
+    // TODO: we will not hard-core server URL here
+    const response = await fetch("http://localhost:8080/products");
     const data = await response.json();
-    resolve(data);
+    resolve({data});
   });
 }
