@@ -9,6 +9,7 @@ export function fetchAllProducts() {
 
 export function fetchProductsByFilter(filter) {
   // filter = {"category":"smartphone"}
+  // TODO: on server we will support multip;e values
   let queryString = "";
   for (let key in filter) {
     queryString += `${key}=${filter[key]}&`;
