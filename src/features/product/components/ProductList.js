@@ -4,6 +4,7 @@ import {
   fetchAllProductsAsync,
   fetchProductsByFilterAsync,
   selectAllProducts,
+  selectTotalItems,
 } from "../productSlice";
 
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
@@ -200,6 +201,7 @@ function classNames(...classes) {
 
 export default function ProductList() {
   const products = useSelector(selectAllProducts);
+  const totalItems = useSelector(selectTotalItems);
   const dispatch = useDispatch();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filter, setFilter] = useState({});
@@ -231,13 +233,19 @@ export default function ProductList() {
   };
 
   const handlePage = (page) => {
+    // console.log(page)
     setPage(page);
   };
 
   useEffect(() => {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
     dispatch(fetchProductsByFilterAsync({ filter, sort, pagination }));
-  }, [dispatch, filter, sort]);
+  }, [dispatch, filter, sort, page]);
+
+useEffect(()=>{
+  setPage(1)
+},[totalItems, sort])
+
   return (
     <div className="bg-white">
       <div>
@@ -338,6 +346,7 @@ export default function ProductList() {
             page={page}
             setPage={setPage}
             handlePage={handlePage}
+            totalItems={totalItems}
           ></Pagination>
         </main>
       </div>
@@ -522,7 +531,7 @@ function DesktopFilter({ handleFilter }) {
     </form>
   );
 }
-function Pagination({ page, setPage, handlePage, totalItems = 55 }) {
+function Pagination({ page, setPage, handlePage, totalItems }) {
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
@@ -547,7 +556,11 @@ function Pagination({ page, setPage, handlePage, totalItems = 55 }) {
               {(page - 1) * ITEMS_PER_PAGE + 1}
             </span>{" "}
             to{" "}
-            <span className="font-medium">{page * ITEMS_PER_PAGE}</span>{" "}
+            <span className="font-medium">
+              {page * ITEMS_PER_PAGE > totalItems
+                ? totalItems
+                : page * ITEMS_PER_PAGE}
+            </span>{" "}
             of <span className="font-medium">{totalItems}</span> results
           </p>
         </div>
