@@ -7,7 +7,7 @@ const initialState = {
   categories:[],
   status: "idle",
   totalItems:0,
-  selectedProduct:{}
+  selectedProduct:null
 };
 
 export const fetchAllProductsAsync = createAsyncThunk(
