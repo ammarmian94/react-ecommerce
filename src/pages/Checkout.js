@@ -12,6 +12,7 @@ import {
   selectLoggedInUser,
   updateUserAsync,
 } from "../features/auth/authSlice";
+import { createOrderAsync } from "../features/order/orderSlice";
 
 const addresses = [
   {
@@ -55,6 +56,8 @@ function Checkout() {
     0
   );
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("cash");
 
   const handleQuantity = (e, item) => {
     e.preventDefault();
@@ -65,6 +68,31 @@ function Checkout() {
     e.preventDefault();
     dispatch(deleteItemFromCartAsync(itemId));
   };
+
+  const handleAddress = (e) => {
+    setSelectedAddress(user.addresses[e.target.value]);
+  };
+
+  const handlePayment = (e) => {
+    setPaymentMethod(e.target.value);
+  };
+
+  const handleOrder = (e) => {
+    const order = {
+      items,
+      totalItems,
+      totalAmount,
+      user,
+      paymentMethod,
+      selectedAddress,
+    };
+    // console.log(order);
+    dispatch(createOrderAsync(order));
+    // TODO: redirect to order success page
+    // TODO: clear cart after order
+    // TODO: on server change the stock number of items
+  };
+
   return (
     <>
       {items.length < 1 && <Navigate to="/" replace={true}></Navigate>}
@@ -255,15 +283,17 @@ function Checkout() {
                       Choose from existing addresses{" "}
                     </p>
                     <ul role="list">
-                      {user.addresses.map((address) => (
+                      {user.addresses.map((address, index) => (
                         <li
-                          key={address.name}
+                          key={address.index}
                           className="flex justify-between gap-x-6 py-5 mb-3 px-5 border-solid border-2 border-gray"
                         >
                           <div className="flex min-w-0 gap-x-4">
                             <input
                               name="address"
                               type="radio"
+                              onChange={handleAddress}
+                              value={index}
                               className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                             />
                             <div className="min-w-0 flex-auto">
@@ -307,13 +337,16 @@ function Checkout() {
                       <div className="mt-6 space-y-6">
                         <div className="flex items-center gap-x-3">
                           <input
-                            id="cash-payment"
+                            id="cash"
                             name="paymentMethod"
+                            onChange={handlePayment}
+                            value="cash"
+                            checked={paymentMethod === "cash"}
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
                           <label
-                            htmlFor="cash-payment"
+                            htmlFor="cash"
                             className="block text-sm font-medium leading-6 text-gray-900"
                           >
                             Cash
@@ -321,13 +354,16 @@ function Checkout() {
                         </div>
                         <div className="flex items-center gap-x-3">
                           <input
-                            id="card-payment"
+                            id="card"
                             name="paymentMethod"
+                            onChange={handlePayment}
+                            value="card"
+                            checked={paymentMethod === "card"}
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
                           <label
-                            htmlFor="card-payment"
+                            htmlFor="card"
                             className="block text-sm font-medium leading-6 text-gray-900"
                           >
                             Card
@@ -429,12 +465,12 @@ function Checkout() {
                   Shipping and taxes calculated at checkout.
                 </p>
                 <div className="mt-6">
-                  <Link
-                    to="/checkout"
-                    className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                  <div
+                    onClick={handleOrder}
+                    className="flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                   >
-                    Checkout
-                  </Link>
+                    Order Now
+                  </div>
                 </div>
                 <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                   <p>
