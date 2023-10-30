@@ -12,7 +12,10 @@ import {
   selectLoggedInUser,
   updateUserAsync,
 } from "../features/auth/authSlice";
-import { createOrderAsync } from "../features/order/orderSlice";
+import {
+  createOrderAsync,
+  selectCurrentOrder,
+} from "../features/order/orderSlice";
 
 const addresses = [
   {
@@ -44,20 +47,21 @@ function Checkout() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
   const items = useSelector(selectItems);
+  const user = useSelector(selectLoggedInUser);
+  const currentOrder = useSelector(selectCurrentOrder);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const user = useSelector(selectLoggedInUser);
   const totalAmount = items.reduce(
     (amount, item) => item.price * item.quantity + amount,
     0
   );
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const [paymentMethod, setPaymentMethod] = useState("cash");
+  const [paymentMethod, setPaymentMethod] = useState(null);
 
   const handleQuantity = (e, item) => {
     e.preventDefault();
@@ -78,16 +82,21 @@ function Checkout() {
   };
 
   const handleOrder = (e) => {
-    const order = {
-      items,
-      totalItems,
-      totalAmount,
-      user,
-      paymentMethod,
-      selectedAddress,
-    };
+    if (selectedAddress && paymentMethod) {
+      const order = {
+        items,
+        totalItems,
+        totalAmount,
+        user,
+        paymentMethod,
+        selectedAddress,
+        status: "pending",
+      };
+      dispatch(createOrderAsync(order));
+    } else {
+      alert("Enter address and payment method");
+    }
     // console.log(order);
-    dispatch(createOrderAsync(order));
     // TODO: redirect to order success page
     // TODO: clear cart after order
     // TODO: on server change the stock number of items
@@ -96,6 +105,12 @@ function Checkout() {
   return (
     <>
       {items.length < 1 && <Navigate to="/" replace={true}></Navigate>}
+      {currentOrder && (
+        <Navigate
+          to={`/order-success/${currentOrder.id}`}
+          replace={true}
+        ></Navigate>
+      )}
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
