@@ -2562,6 +2562,70 @@
       },
       "status": "pending",
       "id": 2
+    },
+    {
+      "items": [
+        {
+          "title": "OPPOF19",
+          "description": "OPPO F19 is officially announced on April 2021.",
+          "price": 280,
+          "discountPercentage": 17.91,
+          "rating": 4.3,
+          "stock": 123,
+          "brand": "OPPO",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/4/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/4/1.jpg",
+            "https://i.dummyjson.com/data/products/4/2.jpg",
+            "https://i.dummyjson.com/data/products/4/3.jpg",
+            "https://i.dummyjson.com/data/products/4/4.jpg",
+            "https://i.dummyjson.com/data/products/4/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 2,
+          "id": 1
+        }
+      ],
+      "totalItems": 1,
+      "totalAmount": 280,
+      "user": {
+        "email": "demo@gmail.com",
+        "password": "Qwert123",
+        "addresses": [
+          {
+            "name": "AMMAR RIAZ",
+            "email": "ammarriaz44@gmail.com",
+            "phone": "03054220942",
+            "street": "talhara",
+            "city": "Sialkot",
+            "state": "punjab",
+            "pinCode": "51010"
+          },
+          {
+            "name": "Ahmad",
+            "email": "ahmad@gmail.com",
+            "phone": "03056259600",
+            "street": "F1 johar town",
+            "city": "Lahore",
+            "state": "Punjab",
+            "pinCode": "51100"
+          }
+        ],
+        "id": 2
+      },
+      "paymentMethod": "card",
+      "selectedAddress": {
+        "name": "AMMAR RIAZ",
+        "email": "ammarriaz44@gmail.com",
+        "phone": "03054220942",
+        "street": "talhara",
+        "city": "Sialkot",
+        "state": "punjab",
+        "pinCode": "51010"
+      },
+      "status": "pending",
+      "id": 3
     }
   ]
 }
