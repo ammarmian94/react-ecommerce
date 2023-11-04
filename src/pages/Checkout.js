@@ -9,45 +9,20 @@ import {
 } from "../features/cart/cartSlice";
 import { useForm } from "react-hook-form";
 import {
-  selectLoggedInUser,
   updateUserAsync,
 } from "../features/auth/authSlice";
 import {
   createOrderAsync,
   selectCurrentOrder,
 } from "../features/order/orderSlice";
+import { selectUserInfo } from "../features/user/userSlice";
 
-const addresses = [
-  {
-    name: "John wick",
-    street: "talhara",
-    city: "daska",
-    pinCode: 656556,
-    state: "Punjab",
-    phone: 90078601,
-  },
-  {
-    name: "Mathew",
-    street: "main",
-    city: "Sialkot",
-    pinCode: 123456,
-    state: "Punjab",
-    phone: 90078601,
-  },
-  {
-    name: "Elon musk",
-    street: "4IIE",
-    city: "Gujranwala",
-    pinCode: 765434,
-    state: "Punjab",
-    phone: 90078601,
-  },
-];
+
 function Checkout() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
   const items = useSelector(selectItems);
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   const currentOrder = useSelector(selectCurrentOrder);
   const {
     register,
