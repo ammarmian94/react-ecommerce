@@ -8,6 +8,7 @@ export default function UserProfile() {
   const user = useSelector(selectUserInfo);
   const [selectedEditIndex, setSelectedEditIndex] = useState(-1);
   const [showAddAddressFrom, setShowAddAddressFrom] = useState(false);
+  // TODO:we will add payment section when we work on backend
   const {
     register,
     handleSubmit,
