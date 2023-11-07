@@ -6,6 +6,7 @@ export default function ForgotPassword() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -30,6 +31,7 @@ export default function ForgotPassword() {
             onSubmit={handleSubmit((data) => {
               console.log(data);
               //   TODO: will be implemented with backend
+              reset();
             })}
           >
             <div>

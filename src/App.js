@@ -21,6 +21,7 @@ import Logout from "./features/auth/components/Logout";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import AdminHome from "./pages/AdminHome";
 import AdminProductDetailPage from "./pages/AdminProductDetailPage";
+import AdminProductForm from "./pages/AdminProductForm";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/admin/product-form",
+    element: (
+      <AdminProtected>
+        <AdminProductForm></AdminProductForm>
+      </AdminProtected>
+    ),
+  },
+  {
     path: "/order-success/:id",
     element: (
       <Protected>
@@ -125,6 +134,7 @@ function App() {
     if (user) {
       dispatch(fetchItemsByUserIdAsync(user.id));
       dispatch(fetchLoggedInUserAsync(user.id));
+      // console.log(user);
     }
   }, [dispatch, user]);
 

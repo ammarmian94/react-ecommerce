@@ -11,9 +11,9 @@ import { selectItems } from "../cart/cartSlice";
 import { selectLoggedInUser } from "../auth/authSlice";
 
 const navigation = [
-  { name: "Dashboard", href: "/", user: true },
-  { name: "Team", href: "#", user: true },
-  { name: "Admin", href: "/admin", admin: true },
+  { name: "Dashboard", link: "/", user: true },
+  { name: "Team", link: "#", user: true },
+  { name: "Admin", link: "/admin", admin: true },
 ];
 const userNavigation = [
   { name: "My Profile", link: "/profile" },
@@ -51,7 +51,7 @@ function Navbar({ children }) {
                           item[user.role]?
                           <Link
                             key={item.name}
-                            to={item.href}
+                            to={item.link}
                             className={classNames(
                               item.current
                                 ? "bg-gray-900 text-white"

@@ -48,9 +48,7 @@
       "brand": "Samsung",
       "category": "smartphones",
       "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/3/1.jpg"
-      ]
+      "images": ["https://i.dummyjson.com/data/products/3/1.jpg"]
     },
     {
       "id": 4,
@@ -1428,9 +1426,7 @@
       "brand": "Fashion Jewellery",
       "category": "womens-jewellery",
       "thumbnail": "https://i.dummyjson.com/data/products/78/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/78/thumbnail.jpg"
-      ]
+      "images": ["https://i.dummyjson.com/data/products/78/thumbnail.jpg"]
     },
     {
       "id": 79,
@@ -1443,9 +1439,7 @@
       "brand": "Fashion Jewellery",
       "category": "womens-jewellery",
       "thumbnail": "https://i.dummyjson.com/data/products/79/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/79/1.jpg"
-      ]
+      "images": ["https://i.dummyjson.com/data/products/79/1.jpg"]
     },
     {
       "id": 80,
@@ -1838,6 +1832,24 @@
         "https://i.dummyjson.com/data/products/100/3.jpg",
         "https://i.dummyjson.com/data/products/100/thumbnail.jpg"
       ]
+    },
+    {
+      "title": "Macbook Pro",
+      "description": "Apple Macbook Air M2 Chip 8/512",
+      "brand": "Apple",
+      "category": "laptops",
+      "price": "2270",
+      "discountPercentage": "8",
+      "stock": "199",
+      "rating": 0,
+      "thumbnail": "https://applewala.pk/wp-content/uploads/2023/06/Macbook-pro-M2.jpeg",
+      "images": [
+        "https://applewala.pk/wp-content/uploads/2023/06/Macbook-pro-M2.jpeg",
+        "https://applewala.pk/wp-content/uploads/2023/06/Macbook-pro-M2.jpeg",
+        "https://applewala.pk/wp-content/uploads/2023/06/Macbook-pro-M2.jpeg",
+        "https://applewala.pk/wp-content/uploads/2023/06/Macbook-pro-M2.jpeg"
+      ],
+      "id": 101
     }
   ],
   "brands": [

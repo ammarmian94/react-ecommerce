@@ -4,6 +4,13 @@ import { updateUser } from "../user/userAPI";
 
 const initialState = {
   loggedInUser: null,
+  // loggedInUser: {
+  //   addressess: [],
+  //   email: "admin@gmail.com",
+  //   id: 4,
+  //   password: "Qwert123",
+  //   role: "admin",
+  // },
   status: "idle",
   error: null,
   // addresses: [],
@@ -33,14 +40,11 @@ export const checkUserAsync = createAsyncThunk(
   }
 );
 
-export const signOutAsync = createAsyncThunk(
-  "user/signOut",
-  async (userId) => {
-    const response = await signOut(userId);
-    return response.data;
-  }
-);
- 
+export const signOutAsync = createAsyncThunk("user/signOut", async (userId) => {
+  const response = await signOut(userId);
+  return response.data;
+});
+
 export const counterSlice = createSlice({
   name: "user",
   initialState,
@@ -82,7 +86,7 @@ export const counterSlice = createSlice({
       .addCase(signOutAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.loggedInUser = null;
-      })
+      });
   },
 });
 
