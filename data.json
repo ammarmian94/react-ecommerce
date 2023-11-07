@@ -2338,6 +2338,7 @@
     {
       "email": "justdoitdude9@gmail.com",
       "password": "Qwert123",
+      "role": "user",
       "addresses": [
         {
           "name": "AMMAR RIAZ",
@@ -2363,6 +2364,7 @@
     {
       "email": "demo@gmail.com",
       "password": "Qwert123",
+      "role": "user",
       "addresses": [
         {
           "name": "MIAN AMMAR RIAZ",
@@ -2398,7 +2400,15 @@
       "email": "demo1@gmail.com",
       "password": "Qwert123",
       "addressess": [],
+      "role": "user",
       "id": 3
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "Qwert123",
+      "addressess": [],
+      "role": "admin",
+      "id": 4
     }
   ],
   "cart": [
