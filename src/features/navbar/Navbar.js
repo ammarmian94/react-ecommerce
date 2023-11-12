@@ -14,6 +14,7 @@ const navigation = [
   { name: "Dashboard", link: "/", user: true },
   { name: "Team", link: "#", user: true },
   { name: "Admin", link: "/admin", admin: true },
+  { name: "Orders", link: "/admin/orders", admin: true },
 ];
 const userNavigation = [
   { name: "My Profile", link: "/profile" },
@@ -26,7 +27,7 @@ function classNames(...classes) {
 }
 function Navbar({ children }) {
   const items = useSelector(selectItems);
-  const user = useSelector(selectLoggedInUser)
+  const user = useSelector(selectLoggedInUser);
   return (
     <>
       <div className="min-h-full">
@@ -35,7 +36,7 @@ function Navbar({ children }) {
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
-                  <div className= "flex items-center">
+                  <div className="flex items-center">
                     <div className="flex-shrink-0">
                       <Link to="/">
                         <img
@@ -47,22 +48,23 @@ function Navbar({ children }) {
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
-                        {navigation.map((item) => (
-                          item[user.role]?
-                          <Link
-                            key={item.name}
-                            to={item.link}
-                            className={classNames(
-                              item.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "rounded-md px-3 py-2 text-sm font-medium"
-                            )}
-                            aria-current={item.current ? "page" : undefined}
-                          >
-                            {item.name}
-                          </Link>:null
-                        ))}
+                        {navigation.map((item) =>
+                          item[user.role] ? (
+                            <Link
+                              key={item.name}
+                              to={item.link}
+                              className={classNames(
+                                item.current
+                                  ? "bg-gray-900 text-white"
+                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                "rounded-md px-3 py-2 text-sm font-medium"
+                              )}
+                              aria-current={item.current ? "page" : undefined}
+                            >
+                              {item.name}
+                            </Link>
+                          ) : null
+                        )}
                       </div>
                     </div>
                   </div>

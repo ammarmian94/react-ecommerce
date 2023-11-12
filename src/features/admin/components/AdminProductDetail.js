@@ -3,9 +3,13 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductByIdAsync, selectProductById } from "../../product/productSlice";
+import {
+  fetchProductByIdAsync,
+  selectProductById,
+} from "../../product/productSlice";
 import { addToCartAsync } from "../../cart/cartSlice";
 import { selectLoggedInUser } from "../../auth/authSlice";
+import { discountedPrice } from "../../../app/constants";
 
 const colors = [
   { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -141,7 +145,7 @@ export default function AdminProductDetail() {
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl tracking-tight text-gray-900">
-                ${product.price}
+                ${discountedPrice(product)}
               </p>
 
               {/* Reviews */}

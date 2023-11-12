@@ -8,15 +8,13 @@ import {
   updateCartAsync,
 } from "../features/cart/cartSlice";
 import { useForm } from "react-hook-form";
-import {
-  updateUserAsync,
-} from "../features/auth/authSlice";
+import { updateUserAsync } from "../features/auth/authSlice";
 import {
   createOrderAsync,
   selectCurrentOrder,
 } from "../features/order/orderSlice";
 import { selectUserInfo } from "../features/user/userSlice";
-
+import { discountedPrice } from "../app/constants";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -31,7 +29,7 @@ function Checkout() {
     formState: { errors },
   } = useForm();
   const totalAmount = items.reduce(
-    (amount, item) => item.price * item.quantity + amount,
+    (amount, item) => discountedPrice(item) * item.quantity + amount,
     0
   );
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
@@ -394,7 +392,7 @@ function Checkout() {
                                 <a href={item.href}>{item.titile}</a>
                               </h3>
                               <p className="ml-4">
-                                ${item.price * item.quantity}
+                                ${discountedPrice(item) * item.quantity}
                               </p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
