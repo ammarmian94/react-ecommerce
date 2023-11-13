@@ -7,7 +7,13 @@ import {
 } from "../../order/orderSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
-import { PencilIcon, EyeIcon } from "@heroicons/react/24/outline";
+import {
+  PencilIcon,
+  EyeIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+} from "@heroicons/react/24/outline";
+import Pagination from "../../common/Pagination";
 
 function AdminOrders() {
   const dispatch = useDispatch();
@@ -15,6 +21,7 @@ function AdminOrders() {
   const orders = useSelector(selectAllOrders);
   const totalOrders = useSelector(selectTotalOrders);
   const [editableOrderId, setEditableOrderId] = useState(-1);
+  const [sort, setSort] = useState({});
 
   const handleEdit = (order) => {
     setEditableOrderId(order.id);
@@ -28,6 +35,17 @@ function AdminOrders() {
     const updatedOrder = { ...order, status: e.target.value };
     dispatch(updateOrderAsync(updatedOrder));
     setEditableOrderId(-1);
+  };
+
+  const handlePage = (page) => {
+    setPage(page);
+    const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+    dispatch(fetchAllOrdersAsync(pagination));
+  };
+
+  const handleSort = (sortOption) => {
+    const sort = { _sort: sortOption.sort, _order: sortOption.order };
+    setSort(sort);
   };
 
   const chooseColor = (status) => {
@@ -47,8 +65,8 @@ function AdminOrders() {
 
   useEffect(() => {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-    dispatch(fetchAllOrdersAsync(pagination));
-  }, [dispatch, page]);
+    dispatch(fetchAllOrdersAsync({ sort, pagination }));
+  }, [dispatch, page, sort]);
 
   return (
     <div className="overflow-x-auto">
@@ -58,9 +76,41 @@ function AdminOrders() {
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                  <th className="py-3 px-6 text-left">Order #</th>
+                  <th
+                    className="py-3 px-6 text-left cursor-pointer"
+                    onClick={(e) =>
+                      handleSort({
+                        sort: "id",
+                        order: sort?._order === "asc" ? "desc" : "asc",
+                      })
+                    }
+                  >
+                    Order #{" "}
+                    {sort._sort === "id" &&
+                      (sort._order === "asc" ? (
+                        <ArrowUpIcon className="w-4 h-4 inline"></ArrowUpIcon>
+                      ) : (
+                        <ArrowDownIcon className="w-4 h-4 inline"></ArrowDownIcon>
+                      ))}
+                  </th>
                   <th className="py-3 px-6 text-left">Items</th>
-                  <th className="py-3 px-6 text-center">Total Amount</th>
+                  <th
+                    className="py-3 px-6 text-left cursor-pointer"
+                    onClick={(e) =>
+                      handleSort({
+                        sort: "totalAmount",
+                        order: sort?._order === "asc" ? "desc" : "asc",
+                      })
+                    }
+                  >
+                    Total Amount{" "}
+                    {sort._sort === "totalAmount" &&
+                      (sort._order === "asc" ? (
+                        <ArrowUpIcon className="w-4 h-4 inline"></ArrowUpIcon>
+                      ) : (
+                        <ArrowDownIcon className="w-4 h-4 inline"></ArrowDownIcon>
+                      ))}
+                  </th>
                   <th className="py-3 px-6 text-center">Shipping Address</th>
                   <th className="py-3 px-6 text-center">Status</th>
                   <th className="py-3 px-6 text-center">Actions</th>
@@ -145,6 +195,12 @@ function AdminOrders() {
           </div>
         </div>
       </div>
+      <Pagination
+        page={page}
+        setPage={setPage}
+        handlePage={handlePage}
+        totalItems={totalOrders}
+      ></Pagination>
     </div>
   );
 }
