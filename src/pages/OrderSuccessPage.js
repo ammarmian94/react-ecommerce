@@ -13,7 +13,7 @@ function OrderSuccessPage() {
   useEffect(() => {
     dispatch(resetCartAsync(user.id));
     dispatch(resetOrder());
-  }, []);
+  }, [dispatch, user.id]);
   return (
     <>
       {!params.id && <Navigate to="/" replace={true}></Navigate>}

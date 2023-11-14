@@ -8,6 +8,7 @@ import {
 import { Link, Navigate } from "react-router-dom";
 import { discountedPrice } from "../../app/constants";
 import { useAlert } from "react-alert";
+import Modal from "../common/Modal"
 
 export default function Cart() {
   // const count = useSelector(selectCount);
@@ -15,6 +16,7 @@ export default function Cart() {
   const [open, setOpen] = useState(true);
   const items = useSelector(selectItems);
   const alert = useAlert();
+  const [openModal, setOpenModal] = useState(null)
 
   const totalAmount = items.reduce(
     (amount, item) => discountedPrice(item) * item.quantity + amount,
@@ -27,8 +29,7 @@ export default function Cart() {
     dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
   };
 
-  const handleRemove = (e, itemId) => {
-    e.preventDefault();
+  const handleRemove = (itemId) => {
     dispatch(deleteItemFromCartAsync(itemId));
     alert.success("Removed");
   };
@@ -89,9 +90,18 @@ export default function Cart() {
                       </div>
 
                       <div className="flex">
+                      <Modal 
+                      title={`Delete ${item.title}`}
+                      message="Are you sure you want to delete this Cart Item?"
+                      dangerOption="Delete"
+                      cancelOption="Cancel"
+                      dangerAction={e=>handleRemove(item.id)}
+                      cancelAction={()=>setOpenModal(null)}
+                      showModal={openModal === item.id}
+                      ></Modal>
                         <button
                           onClick={(e) => {
-                            handleRemove(e, item.id);
+                            setOpenModal(item.id);
                           }}
                           type="button"
                           className="font-medium text-indigo-600 hover:text-indigo-500"
