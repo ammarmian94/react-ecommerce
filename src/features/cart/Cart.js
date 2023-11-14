@@ -7,12 +7,14 @@ import {
 } from "./cartSlice";
 import { Link, Navigate } from "react-router-dom";
 import { discountedPrice } from "../../app/constants";
+import { useAlert } from "react-alert";
 
 export default function Cart() {
   // const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
   const items = useSelector(selectItems);
+  const alert = useAlert();
 
   const totalAmount = items.reduce(
     (amount, item) => discountedPrice(item) * item.quantity + amount,
@@ -28,6 +30,7 @@ export default function Cart() {
   const handleRemove = (e, itemId) => {
     e.preventDefault();
     dispatch(deleteItemFromCartAsync(itemId));
+    alert.success("Removed");
   };
 
   return (
