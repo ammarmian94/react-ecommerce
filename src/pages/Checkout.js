@@ -8,13 +8,13 @@ import {
   updateCartAsync,
 } from "../features/cart/cartSlice";
 import { useForm } from "react-hook-form";
-import { updateUserAsync } from "../features/auth/authSlice";
 import {
   createOrderAsync,
   selectCurrentOrder,
 } from "../features/order/orderSlice";
-import { selectUserInfo } from "../features/user/userSlice";
+import { selectUserInfo, updateUserAsync } from "../features/user/userSlice";
 import { discountedPrice } from "../app/constants";
+import { useAlert } from "react-alert";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ function Checkout() {
   const items = useSelector(selectItems);
   const user = useSelector(selectUserInfo);
   const currentOrder = useSelector(selectCurrentOrder);
+  const alert = useAlert();
   const {
     register,
     handleSubmit,
@@ -60,14 +61,14 @@ function Checkout() {
         items,
         totalItems,
         totalAmount,
-        user,
+        user: user.id,
         paymentMethod,
         selectedAddress,
         status: "pending",
       };
       dispatch(createOrderAsync(order));
     } else {
-      alert("Enter address and payment method");
+      alert.info("Enter address and payment method");
     }
     // console.log(order);
     // TODO: redirect to order success page
