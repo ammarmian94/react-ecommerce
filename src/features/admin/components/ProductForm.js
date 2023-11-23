@@ -31,7 +31,7 @@ export default function ProductForm() {
 
   useEffect(() => {
     if (params.id) {
-      console.log(params.id)
+      // console.log(params.id)
       dispatch(fetchProductByIdAsync(params.id));
     } else {
       dispatch(clearSelectedProduct());
@@ -65,7 +65,7 @@ export default function ProductForm() {
       <form
         noValidate
         onSubmit={handleSubmit((data) => {
-          console.log(data);
+          // console.log(data);
           const product = { ...data };
           product.images = [
             product.image1,
@@ -85,9 +85,12 @@ export default function ProductForm() {
             product.id = params.id;
             product.rating = selectedProduct.rating || 0;
             dispatch(updateProductAsync(product));
+            alert.success("Product Updated successfully");
             reset();
           } else {
             dispatch(createProductAsync(product));
+            alert.success("Product Added successfully");
+            // TODO: check if API is failed or successfull or failed
             reset();
           }
         })}
@@ -99,7 +102,7 @@ export default function ProductForm() {
             </h2>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              {selectedProduct.deleted && (
+              {selectedProduct && selectedProduct.deleted && (
                 <h2 className="text-red-500 sm:col-span-6">
                   This product is deleted.
                 </h2>
@@ -438,15 +441,17 @@ export default function ProductForm() {
           </button>
         </div>
       </form>
-      <Modal
-        title={`Delete ${selectedProduct.title}`}
-        message="Are you sure you want to delete this Product?"
-        dangerOption="Delete"
-        cancelOption="Cancel"
-        dangerAction={handleDelete}
-        cancelAction={() => setOpenModal(null)}
-        showModal={openModal}
-      ></Modal>
+      {selectedProduct && (
+        <Modal
+          title={`Delete ${selectedProduct.title}`}
+          message="Are you sure you want to delete this Product?"
+          dangerOption="Delete"
+          cancelOption="Cancel"
+          dangerAction={handleDelete}
+          cancelAction={() => setOpenModal(null)}
+          showModal={openModal}
+        ></Modal>
+      )}
     </>
   );
 }
