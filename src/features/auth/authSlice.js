@@ -2,14 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createUser, checkUser, signOut } from "./authAPI";
 
 const initialState = {
-  loggedInUser: null,
-  // loggedInUser: {
-  //   addressess: [],
-  //   email: "admin@gmail.com",
-  //   id: 4,
-  //   password: "Qwert123",
-  //   role: "admin",
-  // },
+  loggedInUserToken: null,
   status: "idle",
   error: null,
   // addresses: [],
@@ -57,14 +50,14 @@ export const counterSlice = createSlice({
       })
       .addCase(createUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUser = action.payload;
+        state.loggedInUserToken = action.payload;
       })
       .addCase(checkUserAsync.pending, (state) => {
         state.status = "loading";
       })
       .addCase(checkUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUser = action.payload;
+        state.loggedInUserToken = action.payload;
       })
       .addCase(checkUserAsync.rejected, (state, action) => {
         state.error = action.payload;
@@ -74,14 +67,14 @@ export const counterSlice = createSlice({
       })
       .addCase(signOutAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUser = null;
+        state.loggedInUserToken = null;
       });
   },
 });
 
 export const { increment } = counterSlice.actions;
 
-export const selectLoggedInUser = (state) => state.auth.loggedInUser;
+export const selectLoggedInUser = (state) => state.auth.loggedInUserToken;
 export const selectError = (state) => state.auth.error;
 
 export default counterSlice.reducer;

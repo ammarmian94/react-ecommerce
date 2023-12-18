@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductByIdAsync, selectProductById } from "../productSlice";
 import { addToCartAsync, selectItems } from "../../cart/cartSlice";
-import { selectLoggedInUser } from "../../auth/authSlice";
 import { discountedPrice } from "../../../app/constants";
 import { useAlert } from "react-alert";
 
@@ -42,7 +41,6 @@ export default function ProductDetail() {
   const items = useSelector(selectItems);
   const dispatch = useDispatch();
   const params = useParams();
-  const user = useSelector(selectLoggedInUser);
   const alert = useAlert();
 
   const handleCart = (e) => {
@@ -51,8 +49,7 @@ export default function ProductDetail() {
     if (items.findIndex((item) => item.product.id === product.id) < 0) {
       const newItem = {
         product: product.id,
-        quantity: 1,
-        user: user.id,
+        quantity: 1
       };
       dispatch(addToCartAsync(newItem));
       alert.success("Added to cart");

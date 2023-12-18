@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Modal from "../../common/Modal";
+import { useAlert } from "react-alert";
 
 export default function ProductForm() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export default function ProductForm() {
   const params = useParams();
   const selectedProduct = useSelector(selectProductById);
   const [openModal, setOpenModal] = useState(null);
+  const alert = useAlert();
 
   const {
     register,

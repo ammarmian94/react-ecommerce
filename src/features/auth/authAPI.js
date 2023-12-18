@@ -20,9 +20,10 @@ export function checkUser(loginInfo) {
       });
       if (response.ok) {
         const data = await response.json();
+        console.log({data})
         resolve({ data });
       } else {
-        const error = await response.json();
+        const error = await response.text();
         reject(error);
       }
     } catch (error) {

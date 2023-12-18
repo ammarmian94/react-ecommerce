@@ -2,20 +2,21 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchLoggedInUserOrdersAsync,
-  selectUserInfo,
+  selectUserInfoStatus,
   selectUserOrders,
 } from "../userSlice";
 import { discountedPrice } from "../../../app/constants";
+import { Grid } from "react-loader-spinner";
 
 export default function UserOrders() {
   const dispatch = useDispatch();
   const orders = useSelector(selectUserOrders);
-  const userInfo = useSelector(selectUserInfo);
+  const status = useSelector(selectUserInfoStatus);
 
   useEffect(() => {
     // console.log(user);
-    dispatch(fetchLoggedInUserOrdersAsync(userInfo.id));
-  }, []);
+    dispatch(fetchLoggedInUserOrdersAsync());
+  }, [dispatch]);
 
   return (
     <div>
@@ -52,9 +53,7 @@ export default function UserOrders() {
                               <div>
                                 <div className="flex justify-between text-base font-medium text-gray-900">
                                   <h3>
-                                    <a href={item.href}>
-                                      {item.product.title}
-                                    </a>
+                                    <a href={item.href}>{item.product.title}</a>
                                   </h3>
                                   <p className="ml-4">
                                     $
@@ -128,6 +127,18 @@ export default function UserOrders() {
             </div>
           </div>
         ))}
+      {status === "loading" ? (
+        <Grid
+          height="80"
+          width="80"
+          color="rgb(79, 70, 229)"
+          ariaLabel="grid-loading"
+          radius="12.5"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      ) : null}
     </div>
   );
 }
